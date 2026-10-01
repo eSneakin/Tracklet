@@ -10,8 +10,12 @@ final class UserDefaultsPreferencesStore: PreferencesStore {
     private let defaults: UserDefaults
     private let key = "widget-preferences"
 
-    init(defaults: UserDefaults = .standard) {
+    init(defaults: UserDefaults = .standard, legacyDefaults: UserDefaults? = nil) {
         self.defaults = defaults
+        if defaults.data(forKey: key) == nil, let previous = legacyDefaults?.data(forKey: key),
+           (try? JSONDecoder().decode(WidgetPreferences.self, from: previous)) != nil {
+            defaults.set(previous, forKey: key)
+        }
     }
 
     func load() -> WidgetPreferences {

@@ -1,0 +1,641 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		028A79C8589765000D589B49 /* SpotifyPlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D26E29FDE268501A1B3633 /* SpotifyPlaybackService.swift */; };
+		02F69D5507534D0EFADAA64A /* TrackletWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 101152F9B8457D3988BF9C59 /* TrackletWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		073CA39C5462A200277BB33B /* WidgetSharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F461709179EF9C769EEBE /* WidgetSharedStore.swift */; };
+		07681E52EE57AEF23AFF8DEB /* PlaybackControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6A7C6D27FC870016662125 /* PlaybackControls.swift */; };
+		07E149606BBF31FFC37E2627 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BC0BA58B2D6DD454C40A3 /* PlaybackState.swift */; };
+		1D73FA16C7A4E52B602E4181 /* TrackletTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8836B8E34BA8BF75B756FBC /* TrackletTheme.swift */; };
+		26A6E1F19BECCA2DDCAA4FE6 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F862B5ACEAA5A69F284BAAD3 /* SettingsViewModel.swift */; };
+		339832EA5EA1CA72C68D9E93 /* SpotifyAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D63A7D23B1238A0AFC54D1 /* SpotifyAuthService.swift */; };
+		35D3A0BD28B4498E22ED64AC /* TrackletWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C859A56B0916CDCB5B07879 /* TrackletWidget.swift */; };
+		3E34A39A4D23E05898679C12 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BDE7AB7103BF751DA8E51 /* SettingsView.swift */; };
+		4405D33C579BBC0642346933 /* WidgetSharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F461709179EF9C769EEBE /* WidgetSharedStore.swift */; };
+		49450F7C26381787CD23D7A1 /* TrackletRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC43C30804B99633C7499CD6 /* TrackletRuntime.swift */; };
+		590F8355C12CFCDE4887D279 /* WidgetPlaybackIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29523F28428E635159B1E294 /* WidgetPlaybackIntent.swift */; };
+		5B6810993D1AE672A835A7C1 /* AccountConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8607AA856B73B648272824BC /* AccountConnectionView.swift */; };
+		609DA00053364B2AC3C8F9C3 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A06069C311C953E03F6E5293 /* AppIcon.icon */; };
+		66AE52FA7B497F727BDBC415 /* WidgetComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E7DCAAB6E72F3221BA61CE /* WidgetComponents.swift */; };
+		6A21B423D59148850A703CB3 /* SpotifyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D8C40EDDB9CF95A90BD384 /* SpotifyUser.swift */; };
+		6B92F5FA660195612D86B6A2 /* TrackletTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8836B8E34BA8BF75B756FBC /* TrackletTheme.swift */; };
+		6CA575A90F55EB7D00827D02 /* TrackletCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD5A81A612536173063CC /* TrackletCard.swift */; };
+		6FA33F6089A91F62FB4E1D04 /* TrackletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF73924970D52E9E5293A66 /* TrackletApp.swift */; };
+		7B435649A5569B81F5E5B4C9 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BC0BA58B2D6DD454C40A3 /* PlaybackState.swift */; };
+		896C5B1284FFE807653E804C /* WidgetSnapshotPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3B8A445E567E4A4BD9B18 /* WidgetSnapshotPublisher.swift */; };
+		89E5BDF76A72AB4C1CA9206B /* SpotifyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A378CE6805884B786A7D892 /* SpotifyAccount.swift */; };
+		9008EF402A45D74D753E989C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB47F3C9A6F60D9AA08AE31 /* Cocoa.framework */; };
+		99EC92E7473183DB5F50BB96 /* CredentialStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D50DFEC6E51A9B981EEFDF /* CredentialStore.swift */; };
+		9A1ACE99241E9323C20413B6 /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B4FE079BDCD249F9699975 /* WidgetSnapshot.swift */; };
+		9ED7286404553FB90384CF14 /* WidgetPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513D771C2046C733FF4BD91 /* WidgetPreferences.swift */; };
+		A1812204BFEB64BD6BA99FD1 /* WidgetPlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0A3796D9668263FFFB5D6C /* WidgetPlaybackView.swift */; };
+		A1FD2C35BC1E145EBAF8C1E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB47F3C9A6F60D9AA08AE31 /* Cocoa.framework */; };
+		A574263B80A9DC701913D2DF /* SpotifyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B88C33DF2D00BBFC315A442 /* SpotifyAPIClient.swift */; };
+		ABAC09419496068CE9659E2C /* WidgetPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513D771C2046C733FF4BD91 /* WidgetPreferences.swift */; };
+		B376C5877270E9DDA72A0BA8 /* SpotifySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6EBC6F9EA38787E133CA26 /* SpotifySession.swift */; };
+		B639F1D0B4782383001F074D /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E30389173C632F337EE73D /* PlaybackView.swift */; };
+		C8673F9DA188E6E0E4C7FB65 /* SpotifyPlaybackDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B4700EED2B94B81C6FBD0 /* SpotifyPlaybackDTO.swift */; };
+		C9F238CC4FD39EC004A2FEBA /* PreferencesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98752E97C00B5BB2CBC7BD1 /* PreferencesStore.swift */; };
+		CBC164AE43681F5FD9362A60 /* ClickableCursorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F7C3411875A56429540476 /* ClickableCursorModifier.swift */; };
+		D41789D59B428E81478E055F /* WidgetPlaybackIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29523F28428E635159B1E294 /* WidgetPlaybackIntent.swift */; };
+		D9B3466A8C609178B72E7904 /* ArtworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53A5F54513880C8664B3C5D /* ArtworkView.swift */; };
+		D9B83D2D9B94DAC088982478 /* PlaybackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48F8A6808395A11C28AA48 /* PlaybackViewModel.swift */; };
+		E1EAED01BFFFCA18EA4A82DB /* WidgetTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2DAF88A1EBD19E344127F9 /* WidgetTimelineProvider.swift */; };
+		E7AFC63E7125B39BAEB26392 /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B4FE079BDCD249F9699975 /* WidgetSnapshot.swift */; };
+		FB12F71D270EB34AAC7A3A63 /* SpotifyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E3176CD3F857458CD48CEB /* SpotifyConfiguration.swift */; };
+		FD74B7BBB5906FEAA761F906 /* WidgetPlaybackControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7ED0D62E45DEA6B3005C84 /* WidgetPlaybackControls.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		65D9BC569F496E61B639AA79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89F7BD46C2706DC3CE47A397 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E1C573E1619A28FEFB5E3022;
+			remoteInfo = TrackletWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A2332C6A22F955CE68F70208 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				02F69D5507534D0EFADAA64A /* TrackletWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		101152F9B8457D3988BF9C59 /* TrackletWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TrackletWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		12E7DCAAB6E72F3221BA61CE /* WidgetComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WidgetComponents.swift; sourceTree = "<group>"; };
+		1A6EBC6F9EA38787E133CA26 /* SpotifySession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifySession.swift; path = Sources/Tracklet/Models/SpotifySession.swift; sourceTree = "<group>"; };
+		22D63A7D23B1238A0AFC54D1 /* SpotifyAuthService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifyAuthService.swift; path = Sources/Tracklet/Services/Spotify/SpotifyAuthService.swift; sourceTree = "<group>"; };
+		29523F28428E635159B1E294 /* WidgetPlaybackIntent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetPlaybackIntent.swift; path = Sources/Tracklet/Shared/WidgetPlaybackIntent.swift; sourceTree = "<group>"; };
+		2E48F8A6808395A11C28AA48 /* PlaybackViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlaybackViewModel.swift; path = Sources/Tracklet/Features/Playback/PlaybackViewModel.swift; sourceTree = "<group>"; };
+		2EB47F3C9A6F60D9AA08AE31 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		36F7C3411875A56429540476 /* ClickableCursorModifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ClickableCursorModifier.swift; path = Sources/Tracklet/Features/Components/ClickableCursorModifier.swift; sourceTree = "<group>"; };
+		4098B2277F41E97A49072A2B /* Tracklet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Tracklet.xcconfig; sourceTree = "<group>"; };
+		433BC0BA58B2D6DD454C40A3 /* PlaybackState.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlaybackState.swift; path = Sources/Tracklet/Models/PlaybackState.swift; sourceTree = "<group>"; };
+		4CF73924970D52E9E5293A66 /* TrackletApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TrackletApp.swift; path = Sources/Tracklet/TrackletApp.swift; sourceTree = "<group>"; };
+		59D26E29FDE268501A1B3633 /* SpotifyPlaybackService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifyPlaybackService.swift; path = Sources/Tracklet/Services/Spotify/SpotifyPlaybackService.swift; sourceTree = "<group>"; };
+		6F0A3796D9668263FFFB5D6C /* WidgetPlaybackView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WidgetPlaybackView.swift; sourceTree = "<group>"; };
+		73C3B8A445E567E4A4BD9B18 /* WidgetSnapshotPublisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetSnapshotPublisher.swift; path = Sources/Tracklet/Services/WidgetSnapshotPublisher.swift; sourceTree = "<group>"; };
+		806F461709179EF9C769EEBE /* WidgetSharedStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetSharedStore.swift; path = Sources/Tracklet/Shared/WidgetSharedStore.swift; sourceTree = "<group>"; };
+		8607AA856B73B648272824BC /* AccountConnectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AccountConnectionView.swift; path = Sources/Tracklet/Features/Settings/AccountConnectionView.swift; sourceTree = "<group>"; };
+		8A378CE6805884B786A7D892 /* SpotifyAccount.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifyAccount.swift; path = Sources/Tracklet/Models/SpotifyAccount.swift; sourceTree = "<group>"; };
+		8B88C33DF2D00BBFC315A442 /* SpotifyAPIClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifyAPIClient.swift; path = Sources/Tracklet/Services/Spotify/SpotifyAPIClient.swift; sourceTree = "<group>"; };
+		9C859A56B0916CDCB5B07879 /* TrackletWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TrackletWidget.swift; sourceTree = "<group>"; };
+		9EAB4A8DCE0DB8B35A6249CB /* Widget.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
+		A056235EB4328EC2B7010121 /* Widget-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Widget-Info.plist"; sourceTree = "<group>"; };
+		A06069C311C953E03F6E5293 /* AppIcon.icon */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.iconcomposer; path = AppIcon.icon; sourceTree = "<group>"; };
+		A29BDE7AB7103BF751DA8E51 /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Sources/Tracklet/Features/Settings/SettingsView.swift; sourceTree = "<group>"; };
+		B00B4700EED2B94B81C6FBD0 /* SpotifyPlaybackDTO.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifyPlaybackDTO.swift; path = Sources/Tracklet/Models/SpotifyPlaybackDTO.swift; sourceTree = "<group>"; };
+		B513D771C2046C733FF4BD91 /* WidgetPreferences.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetPreferences.swift; path = Sources/Tracklet/Models/WidgetPreferences.swift; sourceTree = "<group>"; };
+		B6E30389173C632F337EE73D /* PlaybackView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlaybackView.swift; path = Sources/Tracklet/Features/Playback/PlaybackView.swift; sourceTree = "<group>"; };
+		BA2DAF88A1EBD19E344127F9 /* WidgetTimelineProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WidgetTimelineProvider.swift; sourceTree = "<group>"; };
+		C0B4FE079BDCD249F9699975 /* WidgetSnapshot.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetSnapshot.swift; path = Sources/Tracklet/Shared/WidgetSnapshot.swift; sourceTree = "<group>"; };
+		C0D50DFEC6E51A9B981EEFDF /* CredentialStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CredentialStore.swift; path = Sources/Tracklet/Storage/CredentialStore.swift; sourceTree = "<group>"; };
+		C8D8C40EDDB9CF95A90BD384 /* SpotifyUser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifyUser.swift; path = Sources/Tracklet/Models/SpotifyUser.swift; sourceTree = "<group>"; };
+		CC43C30804B99633C7499CD6 /* TrackletRuntime.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TrackletRuntime.swift; path = Sources/Tracklet/TrackletRuntime.swift; sourceTree = "<group>"; };
+		CD6A7C6D27FC870016662125 /* PlaybackControls.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlaybackControls.swift; path = Sources/Tracklet/Features/Playback/PlaybackControls.swift; sourceTree = "<group>"; };
+		CE7ED0D62E45DEA6B3005C84 /* WidgetPlaybackControls.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WidgetPlaybackControls.swift; sourceTree = "<group>"; };
+		D8836B8E34BA8BF75B756FBC /* TrackletTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TrackletTheme.swift; path = Sources/Tracklet/Theme/TrackletTheme.swift; sourceTree = "<group>"; };
+		DB6F7D3C95C05E6694DA7210 /* Tracklet-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Tracklet-Info.plist"; sourceTree = "<group>"; };
+		E53A5F54513880C8664B3C5D /* ArtworkView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ArtworkView.swift; path = Sources/Tracklet/Features/Playback/ArtworkView.swift; sourceTree = "<group>"; };
+		E61DD5A81A612536173063CC /* TrackletCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TrackletCard.swift; path = Sources/Tracklet/Features/Components/TrackletCard.swift; sourceTree = "<group>"; };
+		E84E9C6B43A64BCCB2AD3ECF /* Tracklet.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = Tracklet.entitlements; sourceTree = "<group>"; };
+		F862B5ACEAA5A69F284BAAD3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsViewModel.swift; path = Sources/Tracklet/Features/Settings/SettingsViewModel.swift; sourceTree = "<group>"; };
+		F8E3176CD3F857458CD48CEB /* SpotifyConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifyConfiguration.swift; path = Sources/Tracklet/Configuration/SpotifyConfiguration.swift; sourceTree = "<group>"; };
+		F98752E97C00B5BB2CBC7BD1 /* PreferencesStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreferencesStore.swift; path = Sources/Tracklet/Storage/PreferencesStore.swift; sourceTree = "<group>"; };
+		FB484EBA418D54ACEB54BCD0 /* Tracklet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracklet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F0F0F20AAD74A25B65ACC991 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1FD2C35BC1E145EBAF8C1E2 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4DCCFF558193542D73C87A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9008EF402A45D74D753E989C /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		27CA305B0C5E0E8C7F659B8F /* OS X */ = {
+			isa = PBXGroup;
+			children = (
+				2EB47F3C9A6F60D9AA08AE31 /* Cocoa.framework */,
+			);
+			name = "OS X";
+			sourceTree = "<group>";
+		};
+		3970EEC6AC604258ECD754D1 /* Tracklet Sources */ = {
+			isa = PBXGroup;
+			children = (
+				F8E3176CD3F857458CD48CEB /* SpotifyConfiguration.swift */,
+				36F7C3411875A56429540476 /* ClickableCursorModifier.swift */,
+				E61DD5A81A612536173063CC /* TrackletCard.swift */,
+				E53A5F54513880C8664B3C5D /* ArtworkView.swift */,
+				CD6A7C6D27FC870016662125 /* PlaybackControls.swift */,
+				B6E30389173C632F337EE73D /* PlaybackView.swift */,
+				2E48F8A6808395A11C28AA48 /* PlaybackViewModel.swift */,
+				8607AA856B73B648272824BC /* AccountConnectionView.swift */,
+				A29BDE7AB7103BF751DA8E51 /* SettingsView.swift */,
+				F862B5ACEAA5A69F284BAAD3 /* SettingsViewModel.swift */,
+				433BC0BA58B2D6DD454C40A3 /* PlaybackState.swift */,
+				8A378CE6805884B786A7D892 /* SpotifyAccount.swift */,
+				B00B4700EED2B94B81C6FBD0 /* SpotifyPlaybackDTO.swift */,
+				1A6EBC6F9EA38787E133CA26 /* SpotifySession.swift */,
+				C8D8C40EDDB9CF95A90BD384 /* SpotifyUser.swift */,
+				B513D771C2046C733FF4BD91 /* WidgetPreferences.swift */,
+				8B88C33DF2D00BBFC315A442 /* SpotifyAPIClient.swift */,
+				22D63A7D23B1238A0AFC54D1 /* SpotifyAuthService.swift */,
+				59D26E29FDE268501A1B3633 /* SpotifyPlaybackService.swift */,
+				73C3B8A445E567E4A4BD9B18 /* WidgetSnapshotPublisher.swift */,
+				29523F28428E635159B1E294 /* WidgetPlaybackIntent.swift */,
+				806F461709179EF9C769EEBE /* WidgetSharedStore.swift */,
+				C0B4FE079BDCD249F9699975 /* WidgetSnapshot.swift */,
+				C0D50DFEC6E51A9B981EEFDF /* CredentialStore.swift */,
+				F98752E97C00B5BB2CBC7BD1 /* PreferencesStore.swift */,
+				D8836B8E34BA8BF75B756FBC /* TrackletTheme.swift */,
+				4CF73924970D52E9E5293A66 /* TrackletApp.swift */,
+				CC43C30804B99633C7499CD6 /* TrackletRuntime.swift */,
+			);
+			name = "Tracklet Sources";
+			sourceTree = "<group>";
+		};
+		3B15DB438B4DEB941E26DB32 = {
+			isa = PBXGroup;
+			children = (
+				BC36B3C70D087DAA79D9C3F4 /* Products */,
+				82165187B6D66839FDFEC44D /* Frameworks */,
+				BFBC0D799666751924B87F3B /* Configuration */,
+				3970EEC6AC604258ECD754D1 /* Tracklet Sources */,
+				3BCB0885FD596A436C3ACB24 /* TrackletWidgetExtension */,
+				433208C673985147D0BF99D4 /* Resources */,
+			);
+			sourceTree = "<group>";
+		};
+		3BCB0885FD596A436C3ACB24 /* TrackletWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				9C859A56B0916CDCB5B07879 /* TrackletWidget.swift */,
+				12E7DCAAB6E72F3221BA61CE /* WidgetComponents.swift */,
+				CE7ED0D62E45DEA6B3005C84 /* WidgetPlaybackControls.swift */,
+				6F0A3796D9668263FFFB5D6C /* WidgetPlaybackView.swift */,
+				BA2DAF88A1EBD19E344127F9 /* WidgetTimelineProvider.swift */,
+			);
+			name = TrackletWidgetExtension;
+			path = TrackletWidgetExtension;
+			sourceTree = "<group>";
+		};
+		433208C673985147D0BF99D4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A06069C311C953E03F6E5293 /* AppIcon.icon */,
+			);
+			name = Resources;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		82165187B6D66839FDFEC44D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27CA305B0C5E0E8C7F659B8F /* OS X */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BC36B3C70D087DAA79D9C3F4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FB484EBA418D54ACEB54BCD0 /* Tracklet.app */,
+				101152F9B8457D3988BF9C59 /* TrackletWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BFBC0D799666751924B87F3B /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				DB6F7D3C95C05E6694DA7210 /* Tracklet-Info.plist */,
+				E84E9C6B43A64BCCB2AD3ECF /* Tracklet.entitlements */,
+				4098B2277F41E97A49072A2B /* Tracklet.xcconfig */,
+				A056235EB4328EC2B7010121 /* Widget-Info.plist */,
+				9EAB4A8DCE0DB8B35A6249CB /* Widget.entitlements */,
+			);
+			name = Configuration;
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C4FD1ACEFB5ED3A81296658B /* Tracklet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABD107F728E1908E9EAA1B9B /* Build configuration list for PBXNativeTarget "Tracklet" */;
+			buildPhases = (
+				D9957EF7150A1157E6DD11E1 /* Sources */,
+				F4DCCFF558193542D73C87A3 /* Frameworks */,
+				C03E8BA27AE81ACBD8FBB4C5 /* Resources */,
+				A2332C6A22F955CE68F70208 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				19898E87543D4B3E907C94BE /* PBXTargetDependency */,
+			);
+			name = Tracklet;
+			productName = Tracklet;
+			productReference = FB484EBA418D54ACEB54BCD0 /* Tracklet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E1C573E1619A28FEFB5E3022 /* TrackletWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EECAB794F9633FC76AF77A96 /* Build configuration list for PBXNativeTarget "TrackletWidgetExtension" */;
+			buildPhases = (
+				FD9B8C0ECA7E2063903E5DA1 /* Sources */,
+				F0F0F20AAD74A25B65ACC991 /* Frameworks */,
+				5E0B51CD4107A4547F4FF217 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrackletWidgetExtension;
+			productName = TrackletWidgetExtension;
+			productReference = 101152F9B8457D3988BF9C59 /* TrackletWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		89F7BD46C2706DC3CE47A397 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					C4FD1ACEFB5ED3A81296658B = {
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
+						};
+					};
+					E1C573E1619A28FEFB5E3022 = {
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 21BE0EAEF4A1E6D29F01DE34 /* Build configuration list for PBXProject "Tracklet" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3B15DB438B4DEB941E26DB32;
+			minimizedProjectReferenceProxies = 0;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = BC36B3C70D087DAA79D9C3F4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C4FD1ACEFB5ED3A81296658B /* Tracklet */,
+				E1C573E1619A28FEFB5E3022 /* TrackletWidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5E0B51CD4107A4547F4FF217 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C03E8BA27AE81ACBD8FBB4C5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				609DA00053364B2AC3C8F9C3 /* AppIcon.icon in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D9957EF7150A1157E6DD11E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB12F71D270EB34AAC7A3A63 /* SpotifyConfiguration.swift in Sources */,
+				CBC164AE43681F5FD9362A60 /* ClickableCursorModifier.swift in Sources */,
+				6CA575A90F55EB7D00827D02 /* TrackletCard.swift in Sources */,
+				D9B3466A8C609178B72E7904 /* ArtworkView.swift in Sources */,
+				07681E52EE57AEF23AFF8DEB /* PlaybackControls.swift in Sources */,
+				B639F1D0B4782383001F074D /* PlaybackView.swift in Sources */,
+				D9B83D2D9B94DAC088982478 /* PlaybackViewModel.swift in Sources */,
+				5B6810993D1AE672A835A7C1 /* AccountConnectionView.swift in Sources */,
+				3E34A39A4D23E05898679C12 /* SettingsView.swift in Sources */,
+				26A6E1F19BECCA2DDCAA4FE6 /* SettingsViewModel.swift in Sources */,
+				07E149606BBF31FFC37E2627 /* PlaybackState.swift in Sources */,
+				89E5BDF76A72AB4C1CA9206B /* SpotifyAccount.swift in Sources */,
+				C8673F9DA188E6E0E4C7FB65 /* SpotifyPlaybackDTO.swift in Sources */,
+				B376C5877270E9DDA72A0BA8 /* SpotifySession.swift in Sources */,
+				6A21B423D59148850A703CB3 /* SpotifyUser.swift in Sources */,
+				ABAC09419496068CE9659E2C /* WidgetPreferences.swift in Sources */,
+				A574263B80A9DC701913D2DF /* SpotifyAPIClient.swift in Sources */,
+				339832EA5EA1CA72C68D9E93 /* SpotifyAuthService.swift in Sources */,
+				028A79C8589765000D589B49 /* SpotifyPlaybackService.swift in Sources */,
+				896C5B1284FFE807653E804C /* WidgetSnapshotPublisher.swift in Sources */,
+				590F8355C12CFCDE4887D279 /* WidgetPlaybackIntent.swift in Sources */,
+				073CA39C5462A200277BB33B /* WidgetSharedStore.swift in Sources */,
+				9A1ACE99241E9323C20413B6 /* WidgetSnapshot.swift in Sources */,
+				99EC92E7473183DB5F50BB96 /* CredentialStore.swift in Sources */,
+				C9F238CC4FD39EC004A2FEBA /* PreferencesStore.swift in Sources */,
+				1D73FA16C7A4E52B602E4181 /* TrackletTheme.swift in Sources */,
+				6FA33F6089A91F62FB4E1D04 /* TrackletApp.swift in Sources */,
+				49450F7C26381787CD23D7A1 /* TrackletRuntime.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD9B8C0ECA7E2063903E5DA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35D3A0BD28B4498E22ED64AC /* TrackletWidget.swift in Sources */,
+				66AE52FA7B497F727BDBC415 /* WidgetComponents.swift in Sources */,
+				FD74B7BBB5906FEAA761F906 /* WidgetPlaybackControls.swift in Sources */,
+				A1812204BFEB64BD6BA99FD1 /* WidgetPlaybackView.swift in Sources */,
+				E1EAED01BFFFCA18EA4A82DB /* WidgetTimelineProvider.swift in Sources */,
+				7B435649A5569B81F5E5B4C9 /* PlaybackState.swift in Sources */,
+				9ED7286404553FB90384CF14 /* WidgetPreferences.swift in Sources */,
+				D41789D59B428E81478E055F /* WidgetPlaybackIntent.swift in Sources */,
+				4405D33C579BBC0642346933 /* WidgetSharedStore.swift in Sources */,
+				E7AFC63E7125B39BAEB26392 /* WidgetSnapshot.swift in Sources */,
+				6B92F5FA660195612D86B6A2 /* TrackletTheme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		19898E87543D4B3E907C94BE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TrackletWidgetExtension;
+			target = E1C573E1619A28FEFB5E3022 /* TrackletWidgetExtension */;
+			targetProxy = 65D9BC569F496E61B639AA79 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5440B592673A8EBA0DE3A773 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4098B2277F41E97A49072A2B /* Tracklet.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Configuration/Tracklet.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Configuration/Tracklet-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tracklet.app;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+		633CEE52DE822B193EE61568 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4098B2277F41E97A49072A2B /* Tracklet.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Configuration/Tracklet.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Configuration/Tracklet-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tracklet.app;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		7EA0141BBD87EFB6FE62C060 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4098B2277F41E97A49072A2B /* Tracklet.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Configuration/Widget.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Configuration/Widget-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tracklet.app.widget;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) WIDGET_EXTENSION";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+		8114E8D4287CFEFE3672C030 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4098B2277F41E97A49072A2B /* Tracklet.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = Configuration/Widget.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Configuration/Widget-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tracklet.app.widget;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) WIDGET_EXTENSION";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		818D0C5BAAC8F8A715DD4D03 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9EC9472A9C0B0D0366285022 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		21BE0EAEF4A1E6D29F01DE34 /* Build configuration list for PBXProject "Tracklet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				818D0C5BAAC8F8A715DD4D03 /* Debug */,
+				9EC9472A9C0B0D0366285022 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABD107F728E1908E9EAA1B9B /* Build configuration list for PBXNativeTarget "Tracklet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5440B592673A8EBA0DE3A773 /* Release */,
+				633CEE52DE822B193EE61568 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EECAB794F9633FC76AF77A96 /* Build configuration list for PBXNativeTarget "TrackletWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7EA0141BBD87EFB6FE62C060 /* Release */,
+				8114E8D4287CFEFE3672C030 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 89F7BD46C2706DC3CE47A397 /* Project object */;
+}

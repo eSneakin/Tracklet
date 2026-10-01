@@ -65,15 +65,7 @@ final class SpotifyAuthService {
     }
 
     func validAccessToken() async throws -> String {
-        let current: SpotifySession?
-        if let session {
-            current = session
-        } else {
-            current = try credentialStore.readSession()
-        }
-        guard let current else {
-            throw SpotifyAuthError.noSession
-        }
+        let current = try await currentSession()
         if !current.needsRefresh {
             session = current
             return current.accessToken
@@ -89,12 +81,29 @@ final class SpotifyAuthService {
         try credentialStore.deleteSession()
     }
 
+    func refreshAccessToken() async throws -> String {
+        let current = try await currentSession()
+        let refreshed = try await refresh(current)
+        try credentialStore.save(refreshed)
+        session = refreshed
+        return refreshed.accessToken
+    }
+
+    private func currentSession() async throws -> SpotifySession {
+        let current: SpotifySession?
+        if let session { current = session }
+        else { current = try credentialStore.readSession() }
+        guard let current else { throw SpotifyAuthError.noSession }
+        return current
+    }
+
     private func openAuthorizationURL(challenge: String, state: String) async throws -> URL {
         var components = URLComponents(string: "https://accounts.spotify.com/authorize")!
         components.queryItems = [
             URLQueryItem(name: "client_id", value: configuration.clientID),
             URLQueryItem(name: "response_type", value: "code"),
             URLQueryItem(name: "redirect_uri", value: configuration.redirectURI.absoluteString),
+            URLQueryItem(name: "scope", value: SpotifyConfiguration.scopes.joined(separator: " ")),
             URLQueryItem(name: "state", value: state),
             URLQueryItem(name: "code_challenge_method", value: "S256"),
             URLQueryItem(name: "code_challenge", value: challenge)

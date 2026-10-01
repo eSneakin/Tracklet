@@ -1,0 +1,9 @@
+// macOS App Groups may use a Team ID prefix without registering a new group online.
+DEVELOPMENT_TEAM = SZS7735XSH
+TRACKLET_APP_GROUP = $(DEVELOPMENT_TEAM).com.tracklet.shared
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY = Apple Development
+SWIFT_VERSION = 5.0
+MARKETING_VERSION = 1.0
+CURRENT_PROJECT_VERSION = 2
+ENABLE_HARDENED_RUNTIME = YES

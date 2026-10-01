@@ -8,47 +8,39 @@ struct AccountConnectionView: View {
     let onDisconnect: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            HStack(spacing: 16) {
-                avatar
-                VStack(alignment: .leading, spacing: 3) {
-                    Text("Connected as")
-                        .font(.system(size: 16, weight: .bold))
-                    Text(account?.displayName ?? "Spotify")
-                        .font(.system(size: 17, weight: .bold))
-                    if account != nil {
-                        Label("Connected", systemImage: "checkmark.circle.fill")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundStyle(Color.spotifyGreen)
-                    } else {
-                        Text("Not connected")
-                        .font(.system(size: 13, weight: .medium))
-                            .foregroundStyle(.secondary)
+        TrackletCard {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack(spacing: 14) {
+                    avatar
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("Spotify")
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundStyle(TrackletTheme.secondaryText)
+                        Text(account?.displayName ?? "Not connected")
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundStyle(TrackletTheme.primaryText)
+                        if account != nil {
+                            Label("Connected", systemImage: "checkmark.circle.fill")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundStyle(TrackletTheme.success)
+                        }
                     }
+                    Spacer()
+                    Button(account == nil ? "Connect" : "Disconnect") {
+                        account == nil ? onConnect() : onDisconnect()
+                    }
+                    .buttonStyle(TrackletButtonStyle(prominent: account == nil, destructive: account != nil))
+                    .trackletClickableCursor()
+                    .disabled(isConnecting)
                 }
-                Spacer()
-            }
-            HStack {
-                Spacer()
-                Button(account == nil ? "Connect Spotify" : "Disconnect") {
-                    account == nil ? onConnect() : onDisconnect()
+                if let errorMessage {
+                    Text(errorMessage)
+                        .font(.caption)
+                        .foregroundStyle(.red)
                 }
-                .buttonStyle(.plain)
-                .font(.system(size: 15, weight: .semibold))
-                .foregroundStyle(account == nil ? .black : .white)
-                .padding(.horizontal, 18)
-                .padding(.vertical, 9)
-                .background(account == nil ? Color.spotifyGreen : Color.trackletButton, in: Capsule())
-                .disabled(isConnecting)
             }
-            if let errorMessage {
-                Text(errorMessage)
-                    .font(.caption)
-                    .foregroundStyle(.red)
-            }
+            .padding(18)
         }
-        .padding(28)
-        .background(Color.trackletSurface, in: RoundedRectangle(cornerRadius: 12))
     }
 
     @ViewBuilder
@@ -58,7 +50,7 @@ struct AccountConnectionView: View {
                 if let image = phase.image { image.resizable().scaledToFill() }
                 else { placeholder }
             }
-            .frame(width: 58, height: 58)
+            .frame(width: 48, height: 48)
             .clipShape(Circle())
         } else {
             placeholder
@@ -66,15 +58,9 @@ struct AccountConnectionView: View {
     }
 
     private var placeholder: some View {
-        Image(systemName: account == nil ? "person.crop.circle" : "person.crop.circle.fill")
+        Image(systemName: "person.crop.circle")
             .font(.system(size: 30))
-            .foregroundStyle(account == nil ? .secondary : Color.spotifyGreen)
-            .frame(width: 58, height: 58)
+            .foregroundStyle(TrackletTheme.secondaryText)
+            .frame(width: 48, height: 48)
     }
-}
-
-private extension Color {
-    static let spotifyGreen = Color(red: 0.118, green: 0.843, blue: 0.376)
-    static let trackletSurface = Color(red: 0.095, green: 0.095, blue: 0.095)
-    static let trackletButton = Color(red: 0.13, green: 0.13, blue: 0.13)
 }

@@ -20,4 +20,21 @@ final class WidgetPreferencesTests: XCTestCase {
         XCTAssertEqual(profile.displayName, "Spotify user")
         XCTAssertTrue(profile.images.isEmpty)
     }
+
+    func testTrackAndEpisodePlaybackItemsDecode() throws {
+        let track = Data(#"{"type":"track","id":"track-1","name":"Song","duration_ms":180000,"artists":[{"name":"Artist"}],"album":{"name":"Album","images":[]}}"#.utf8)
+        let episode = Data(#"{"type":"episode","id":"episode-1","name":"Episode","duration_ms":60000,"show":{"name":"Show","images":[]}}"#.utf8)
+        let decodedTrack = try JSONDecoder().decode(SpotifyPlayableItem.self, from: track)
+        let decodedEpisode = try JSONDecoder().decode(SpotifyPlayableItem.self, from: episode)
+        if case .track = decodedTrack {} else { XCTFail("Expected track") }
+        if case .episode = decodedEpisode {} else { XCTFail("Expected episode") }
+    }
+
+    func testPlayingProgressIsClampedAndAdvances() {
+        let fetchedAt = Date(timeIntervalSince1970: 100)
+        let item = PlaybackItem(id: nil, title: "Song", artists: [], albumName: nil, artworkURL: nil, duration: 10, type: .track)
+        let state = PlaybackState(item: item, isPlaying: true, progressAtFetch: 8, device: nil, fetchedAt: fetchedAt)
+        XCTAssertEqual(state.progress(at: Date(timeIntervalSince1970: 101)), 9)
+        XCTAssertEqual(state.progress(at: Date(timeIntervalSince1970: 105)), 10)
+    }
 }
