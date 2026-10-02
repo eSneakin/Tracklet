@@ -127,6 +127,8 @@ For code changes, discuss larger ideas first, keep PRs focused, reuse existing s
 
 ## License and publication status
 
-Tracklet is being prepared for open-source publication. **A license has not been selected yet**: no `LICENSE` file is included and no MIT/GPL grant should be assumed. See [why a license matters](https://choosealicense.com/no-permission/).
+Tracklet's original code and documentation are available under the [MIT License](LICENSE), copyright 2026 Enmanuel Lopez (eSneakin). You may use, modify, and redistribute them, including commercially, while retaining the copyright and license notices. The software is provided without warranty, as set out in the license.
 
-Before a general release: choose a license, review third-party reference material and branding, decide repository visibility, configure Developer ID signing, and [notarize the app](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution).
+Third-party reference material, content, and branding are not relicensed by this grant; see [third-party notices](THIRD_PARTY_NOTICES.md).
+
+Before a general release: review third-party reference material and branding, decide repository visibility, configure Developer ID signing, and [notarize the app](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution).

@@ -127,6 +127,8 @@ Para contribuir código, conversa primero sobre cambios grandes, mantén las PR 
 
 ## Licencia y publicación
 
-Tracklet se está preparando para publicarse como código abierto. **Todavía falta elegir la licencia**: no hay archivo `LICENSE` y no debe suponerse una concesión MIT/GPL. Consulta [por qué hace falta una licencia](https://choosealicense.com/no-permission/).
+El código y la documentación originales de Tracklet se ofrecen bajo la [licencia MIT](LICENSE), copyright 2026 Enmanuel Lopez (eSneakin). Puedes usarlos, modificarlos y redistribuirlos, incluso comercialmente, conservando los avisos de autoría y licencia. El software se ofrece sin garantías, conforme al texto de la licencia.
 
-Antes de una publicación general: elegir licencia, revisar material de referencia y marcas de terceros, decidir la visibilidad del repositorio, configurar firma Developer ID y [notarizar la app](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution).
+Esta concesión no cambia las licencias de referencias, contenido ni marcas de terceros; consulta los [avisos de terceros](THIRD_PARTY_NOTICES.md).
+
+Antes de una publicación general: revisar material de referencia y marcas de terceros, decidir la visibilidad del repositorio, configurar firma Developer ID y [notarizar la app](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution).

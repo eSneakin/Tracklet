@@ -30,7 +30,7 @@ For authorized testing: extract the ZIP, quit any old copy, and move `Tracklet.a
 - Last played does not restore a lost queue or wake devices. Fully offline startup is not guaranteed.
 - No developer tokens, session, preferences, or playback cache included.
 
-Read the [English guide](https://github.com/eSneakin/Tracklet/blob/main/README.md) for setup, source builds, troubleshooting, privacy, and contributing. Open-source licensing is awaiting the maintainer's selection.
+Read the [English guide](https://github.com/eSneakin/Tracklet/blob/main/README.md) for setup, source builds, troubleshooting, privacy, and contributing. Tracklet's original code and documentation, including this 1.0 release, are licensed under [MIT](https://github.com/eSneakin/Tracklet/blob/main/LICENSE). The archive includes `LICENSE` and `THIRD_PARTY_NOTICES.md`; third-party material is not relicensed.
 
 ## Español
 
@@ -62,4 +62,4 @@ Para pruebas autorizadas: extrae el ZIP, cierra cualquier copia anterior y mueve
 - Last played no recupera una cola perdida ni activa dispositivos. El inicio completamente offline no está garantizado.
 - No incluye tokens, sesión, preferencias ni caché de reproducción del desarrollador.
 
-Consulta la [guía en español](https://github.com/eSneakin/Tracklet/blob/main/README.es.md) para configurar, compilar, resolver problemas, conocer la privacidad y colaborar. La licencia de código abierto queda pendiente de elección del mantenedor.
+Consulta la [guía en español](https://github.com/eSneakin/Tracklet/blob/main/README.es.md) para configurar, compilar, resolver problemas, conocer la privacidad y colaborar. El código y la documentación originales de Tracklet, incluida esta versión 1.0, se ofrecen bajo [MIT](https://github.com/eSneakin/Tracklet/blob/main/LICENSE). La descarga incluye `LICENSE` y `THIRD_PARTY_NOTICES.md`; no se cambia la licencia de material de terceros.
