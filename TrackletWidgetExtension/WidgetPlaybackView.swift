@@ -133,51 +133,38 @@ struct WidgetPlaybackView: View {
     }
 
     private var status: some View {
-        let busy = snapshot.isPerformingAction(at: entry.date)
-        let remembered = snapshot.playback?.isLastKnown == true
-        return Label(busy ? "Updating" : (remembered ? "Last played" : (isStale ? "Last synced" : (snapshot.status == .playing ? "Playing" : "Paused"))),
-              systemImage: busy ? "arrow.triangle.2.circlepath" : (remembered || isStale ? "clock" : (snapshot.status == .playing ? "waveform" : "pause.fill")))
+        Label(statusPresentation.title, systemImage: statusPresentation.symbol)
             .font(.system(size: 10, weight: .medium)).foregroundStyle(secondary)
             .lineLimit(1)
+    }
+
+    private var statusPresentation: (title: String, symbol: String) {
+        // Pending actions take precedence; cached playback must never look like live confirmation.
+        if snapshot.isPerformingAction(at: entry.date) { return ("Updating", "arrow.triangle.2.circlepath") }
+        if snapshot.playback?.isLastKnown == true { return ("Last played", "clock") }
+        if isStale { return ("Last synced", "clock") }
+        return snapshot.status == .playing ? ("Playing", "waveform") : ("Paused", "pause.fill")
     }
 
     private var emptyState: some View {
         VStack(alignment: .leading, spacing: 10) {
             brand
             Spacer(minLength: 0)
-            Image(systemName: emptyIcon).font(.system(size: family == .systemSmall ? 24 : 32))
+            Image(systemName: emptyPresentation.symbol).font(.system(size: family == .systemSmall ? 24 : 32))
                 .foregroundStyle(TrackletTheme.accent)
-            Text(emptyTitle).font(.system(size: family == .systemSmall ? 14 : 18, weight: .semibold))
-            Text(emptyMessage).font(.system(size: 12)).foregroundStyle(secondary)
+            Text(emptyPresentation.title).font(.system(size: family == .systemSmall ? 14 : 18, weight: .semibold))
+            Text(emptyPresentation.message).font(.system(size: 12)).foregroundStyle(secondary)
                 .lineLimit(family == .systemSmall ? 2 : 3)
             Spacer(minLength: 0)
         }
     }
 
-    private var emptyIcon: String {
+    private var emptyPresentation: (symbol: String, title: String, message: String) {
         switch snapshot.status {
-        case .disconnected: "person.crop.circle"
-        case .loading: "arrow.triangle.2.circlepath"
-        case .unavailable: "exclamationmark.circle"
-        default: "music.note"
-        }
-    }
-
-    private var emptyTitle: String {
-        switch snapshot.status {
-        case .disconnected: "Connect Spotify"
-        case .loading: "Syncing playback"
-        case .unavailable: "Open Tracklet"
-        default: "Nothing playing"
-        }
-    }
-
-    private var emptyMessage: String {
-        switch snapshot.status {
-        case .disconnected: "Open Tracklet to connect."
-        case .loading: "Waiting for Spotify."
-        case .unavailable: "Open the app to sync your music."
-        default: "Start playback in Spotify."
+        case .disconnected: ("person.crop.circle", "Connect Spotify", "Open Tracklet to connect.")
+        case .loading: ("arrow.triangle.2.circlepath", "Syncing playback", "Waiting for Spotify.")
+        case .unavailable: ("exclamationmark.circle", "Open Tracklet", "Open the app to sync your music.")
+        default: ("music.note", "Nothing playing", "Start playback in Spotify.")
         }
     }
 }

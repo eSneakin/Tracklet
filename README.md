@@ -8,6 +8,8 @@
 
 Connect Spotify, choose your style, and keep your music close without opening a full player.
 
+New here? Start with **Download and first steps** below. You do not need to understand the code to use Tracklet. If you want to build or contribute, follow **Build it yourself**, then the [developer guide](DEVELOPMENT.md#english).
+
 ## What you can do
 
 - See the song, artist, album, artwork, progress, and playback device.
@@ -43,7 +45,7 @@ For an authorized development installation:
 
 Keep Tracklet running for periodic synchronization. Closing a window is not the same as quitting: quitting stops the app's polling. Widget controls can ask macOS to launch the host app for an action.
 
-The repository is currently private and the first release is a draft, so access is limited. Preparing the project for open-source publication does not automatically make its downloads public.
+If no download is visible, there may not be a published build available to your account yet. A draft release is not a public download; an open-source license and a published installer are separate things.
 
 ## How playback behaves
 
@@ -55,6 +57,27 @@ The repository is currently private and the first release is a draft, so access 
 - **Disconnect:** removes credentials and clears the account's playback snapshot.
 
 WidgetKit schedules widget refreshes. An animated progress bar is a local timer, not a Spotify request every second.
+
+**Why does the song stay visible while updating?** Tracklet keeps the last confirmed information on screen while it asks Spotify for new data. A slow connection should not make the card disappear. A temporary error is not the same as Spotify confirming that nothing is playing.
+
+**Does Repeat do the same thing as Previous?** No. Previous restarts or goes back using the three-second rule. Repeat in the large widget turns repetition of the current track on or off.
+
+## Technical terms, in plain language
+
+You will encounter these names in setup instructions and bug reports. Here is what they mean for Tracklet:
+
+| Term | What it means |
+| --- | --- |
+| OAuth + PKCE | The sign-in process that lets you authorize Tracklet through Spotify. PKCE helps tie the authorization to the app that started it, without embedding a client secret. |
+| Scope | A specific permission, such as reading the current song or pausing playback. New permissions require a new authorization. |
+| Access / refresh token | Credentials used to call Spotify and renew access. Treat both as secrets; never paste them into an issue. |
+| Keychain | macOS's secure credential storage, where Tracklet keeps tokens. |
+| Snapshot | A saved picture of playback data—not a screenshot—including the song, position and time it was checked. |
+| App Group | A shared storage container that lets the app pass snapshots and artwork to its widget. It does not contain Spotify tokens. |
+| Polling | Checking Spotify periodically for changes. Progress between checks is calculated locally. |
+| Bundle | The complete `Tracklet.app` package, including the executable, widget and icons. Copy the whole package when installing. |
+
+You do not need to configure these individually to use an already configured installation.
 
 ## Build it yourself
 
@@ -74,6 +97,10 @@ Create your own app in the [Spotify Developer Dashboard](https://developer.spoti
 
 Configuration lives in [SpotifyConfiguration.swift](Sources/Tracklet/Configuration/SpotifyConfiguration.swift). For your build, set `SpotifyClientID` and `SpotifyRedirectURI` in [Tracklet-Info.plist](Configuration/Tracklet-Info.plist), or use `SPOTIFY_CLIENT_ID` and `SPOTIFY_REDIRECT_URI` in your development launch environment. The bundled Client ID is public but does not grant your account API access. Never add a client secret.
 
+The **Client ID** identifies your application; it is not your Spotify password. The **redirect URI** is the address Spotify returns to after authorization. Keep `tracklet://callback` for the existing setup. If you change its scheme (`tracklet`), also update `CFBundleURLTypes` in the app's plist so macOS can route the callback correctly.
+
+Configuration priority is **plist → launch environment → bundled defaults**. A plist value takes precedence over an environment variable. When testing through Xcode, launch variables belong in **Product → Scheme → Edit Scheme → Run → Arguments → Environment Variables**; they are not automatically saved in an installed app.
+
 ### 3. Build and check
 
 ```sh
@@ -87,9 +114,13 @@ ruby Scripts/check-app-icon.rb .build/release/Build/Products/Release/Tracklet.ap
 
 Your app is at `.build/release/Build/Products/Release/Tracklet.app`, including its extension and icons. Install this bundle; `swift run` alone does not install a widget.
 
+Here, `xcodebuild` builds the complete app, `swift test` runs automated checks, and the Ruby script checks packaged icons. **Release** is a build configuration, not proof that an app is ready for public distribution. Signing and notarization still need to be handled separately.
+
 The Xcode project is committed. Regeneration is optional: `Scripts/generate-xcode-project.rb` requires the `xcodeproj` Ruby gem and replaces the project when run.
 
 ## Finding your way around
+
+See the bilingual [developer guide](DEVELOPMENT.md) for data flow, ownership and regression checks.
 
 | Location | Responsibility |
 | --- | --- |
@@ -109,11 +140,13 @@ The Xcode project is committed. Regeneration is optional: `Scripts/generate-xcod
 | Permission error / 403 | Check Premium, the developer allowlist, and permissions. After a scope change, Disconnect and Connect again. |
 | Stale widget | Open Tracklet, check connectivity, and allow time for WidgetKit. After an update, removing and re-adding the widget may help. |
 | Older app version | Quit Tracklet and launch the copy in Applications. Avoid running a second development copy. |
-| Startup fails without internet | Restore connectivity and reconnect if needed. Fully offline session restoration is a known gap. |
+| Startup fails without internet | Credentials are retained. Restore connectivity and reopen Tracklet to retry. Fully offline profile restoration is not implemented. |
+| Dark icon in Light mode | macOS controls icons separately: System Settings → Appearance → Icon & widget style → Default for the light icon. Install the complete updated app bundle. |
+| Missing widget gallery icon | Install the complete app, not just its executable. If its icon appears in Applications but not the gallery, see the [developer diagnostics](DEVELOPMENT.md#english); packaging and system icon lookup are separate checks. Do not delete system-wide caches. |
 
 ## Privacy and security
 
-Tokens stay in macOS Keychain. Preferences use UserDefaults; playback snapshots and cached artwork use an App Group container. Widget snapshots contain no access or refresh tokens. Actions run through the host app's Spotify service.
+Tokens stay in macOS Keychain. Preferences use UserDefaults (Apple's local settings storage); playback snapshots and cached artwork use an App Group container. Widget snapshots contain no access or refresh tokens. Actions run through the host app's Spotify service.
 
 Archives do not include the developer's session or playback cache. Tracklet contacts Spotify for authentication, profile, playback, and images. It is an independent project, not an official Spotify app.
 

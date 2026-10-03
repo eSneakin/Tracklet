@@ -1,13 +1,11 @@
 import Foundation
 
 enum PlaybackServiceError: LocalizedError {
-    case missingItem
     case missingProgress
     case cannotRestoreItem
 
     var errorDescription: String? {
         switch self {
-        case .missingItem: "Spotify playback item was incomplete."
         case .missingProgress: "Spotify did not report playback progress. Try again."
         case .cannotRestoreItem: "Open Spotify to choose playback. This saved item cannot be restored."
         }
@@ -21,16 +19,13 @@ final class SpotifyPlaybackService {
     init(apiClient: SpotifyAPIClient) { self.apiClient = apiClient }
 
     func fetchPlaybackState() async throws -> PlaybackState? {
-        if let response = try await apiClient.getPlaybackState() {
-            return map(response)
-        }
-        return nil
+        guard let response = try await apiClient.getPlaybackState() else { return nil }
+        return map(response)
     }
 
     func fetchCurrentlyPlaying() async throws -> PlaybackState? {
         guard let response = try await apiClient.getCurrentlyPlaying() else { return nil }
-        guard let item = response.item else { return nil }
-        return PlaybackState(item: map(item), isPlaying: response.isPlaying, progressAtFetch: milliseconds(response.progressMS), device: nil, fetchedAt: Date())
+        return map(response)
     }
 
     func previous(playback: PlaybackState?) async throws {
@@ -65,7 +60,9 @@ final class SpotifyPlaybackService {
             let uris: [String]
             let position_ms: Int
         }
-        let body = try JSONEncoder().encode(RestoreRequest(uris: [uri], position_ms: progress >= item.duration ? 0 : Int(progress * 1000)))
+        let body = try JSONEncoder().encode(RestoreRequest(
+            uris: [uri], position_ms: progress >= item.duration ? 0 : Int(progress * 1000)
+        ))
         try await apiClient.sendPlaybackCommand(method: "PUT", path: "/me/player/play", body: body)
     }
 
@@ -94,18 +91,40 @@ final class SpotifyPlaybackService {
         }
     }
 
+    /// Convert API milliseconds and optional payloads once, before UI or shared storage sees them.
     private func map(_ response: SpotifyPlaybackDTO) -> PlaybackState {
-        PlaybackState(item: response.item.map(map), isPlaying: response.isPlaying, progressAtFetch: milliseconds(response.progressMS), device: response.device.map { PlaybackDevice(name: $0.name, type: $0.type, isActive: $0.isActive ?? false) }, fetchedAt: Date(), repeatMode: response.repeatState.flatMap(PlaybackRepeatMode.init(rawValue:)))
+        PlaybackState(
+            item: response.item.map(map),
+            isPlaying: response.isPlaying,
+            progressAtFetch: milliseconds(response.progressMS),
+            device: response.device.map {
+                PlaybackDevice(name: $0.name, type: $0.type, isActive: $0.isActive ?? false)
+            },
+            fetchedAt: Date(),
+            repeatMode: response.repeatState.flatMap(PlaybackRepeatMode.init(rawValue:))
+        )
     }
 
     private func map(_ item: SpotifyPlayableItem) -> PlaybackItem {
         switch item {
         case .track(let track):
-            return PlaybackItem(id: track.id, title: track.name, artists: track.artists.map(\.name), albumName: track.album?.name, artworkURL: track.album?.images.first?.url, duration: milliseconds(track.durationMS) ?? 0, type: .track, uri: track.uri)
+            return PlaybackItem(
+                id: track.id, title: track.name, artists: track.artists.map(\.name),
+                albumName: track.album?.name, artworkURL: track.album?.images.first?.url,
+                duration: milliseconds(track.durationMS) ?? 0, type: .track, uri: track.uri
+            )
         case .episode(let episode):
-            return PlaybackItem(id: episode.id, title: episode.name, artists: episode.show.map { [$0.name] } ?? [], albumName: episode.show?.name, artworkURL: episode.show?.images.first?.url, duration: milliseconds(episode.durationMS) ?? 0, type: .episode)
+            return PlaybackItem(
+                id: episode.id, title: episode.name, artists: episode.show.map { [$0.name] } ?? [],
+                albumName: episode.show?.name,
+                artworkURL: episode.images?.first?.url ?? episode.show?.images.first?.url,
+                duration: milliseconds(episode.durationMS) ?? 0, type: .episode
+            )
         case .unknown(let unknown):
-            return PlaybackItem(id: unknown.id, title: unknown.name ?? "Spotify item", artists: [], albumName: nil, artworkURL: nil, duration: 0, type: .unknown)
+            return PlaybackItem(
+                id: unknown.id, title: unknown.name ?? "Spotify item", artists: [],
+                albumName: nil, artworkURL: nil, duration: 0, type: .unknown
+            )
         }
     }
 

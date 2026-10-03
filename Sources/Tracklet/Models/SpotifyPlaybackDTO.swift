@@ -16,18 +16,6 @@ struct SpotifyPlaybackDTO: Decodable {
     }
 }
 
-struct SpotifyCurrentlyPlayingDTO: Decodable {
-    let isPlaying: Bool
-    let progressMS: Int?
-    let item: SpotifyPlayableItem?
-
-    enum CodingKeys: String, CodingKey {
-        case isPlaying = "is_playing"
-        case progressMS = "progress_ms"
-        case item
-    }
-}
-
 enum SpotifyPlayableItem: Decodable {
     case track(SpotifyTrackDTO)
     case episode(SpotifyEpisodeDTO)
@@ -52,7 +40,7 @@ struct SpotifyTrackDTO: Decodable {
     let name: String
     let durationMS: Int
     let artists: [SpotifyArtistDTO]
-    let album: SpotifyAlbumDTO?
+    let album: SpotifyCollectionDTO?
 
     enum CodingKeys: String, CodingKey {
         case id, uri, name, artists, album
@@ -64,10 +52,11 @@ struct SpotifyEpisodeDTO: Decodable {
     let id: String?
     let name: String
     let durationMS: Int
-    let show: SpotifyShowDTO?
+    let show: SpotifyCollectionDTO?
+    let images: [SpotifyImage]?
 
     enum CodingKeys: String, CodingKey {
-        case id, name, show
+        case id, name, show, images
         case durationMS = "duration_ms"
     }
 }
@@ -81,20 +70,9 @@ struct SpotifyUnknownItemDTO: Decodable {
 
 struct SpotifyArtistDTO: Decodable { let name: String }
 
-struct SpotifyAlbumDTO: Decodable {
-    let name: String
-    let images: [SpotifyImage]
-
-    enum CodingKeys: String, CodingKey { case name, images }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        name = try container.decode(String.self, forKey: .name)
-        images = try container.decodeIfPresent([SpotifyImage].self, forKey: .images) ?? []
-    }
-}
-
-struct SpotifyShowDTO: Decodable {
+/// Albums and podcast shows share the metadata we consume. Keep Spotify-specific
+/// decoding here; the service maps this payload into the app's playback model.
+struct SpotifyCollectionDTO: Decodable {
     let name: String
     let images: [SpotifyImage]
 

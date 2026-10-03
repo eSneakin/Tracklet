@@ -47,6 +47,7 @@ private final class CursorTrackingNSView: NSView {
     @available(*, unavailable)
     required init?(coder: NSCoder) { nil }
 
+    // Observe pointer movement without intercepting the underlying SwiftUI button's clicks.
     override func hitTest(_ point: NSPoint) -> NSView? { nil }
 
     override func updateTrackingAreas() {
@@ -72,6 +73,7 @@ private final class CursorTrackingNSView: NSView {
 
     private func applyCursor() {
         let cursor = cursor
+        // AppKit/SwiftUI can reset the cursor during the current event; apply after dispatch.
         DispatchQueue.main.async { cursor.set() }
     }
 }

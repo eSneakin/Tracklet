@@ -7,7 +7,7 @@ import UniformTypeIdentifiers
 import WidgetKit
 
 @MainActor
-final class WidgetSnapshotPublisher: ObservableObject {
+final class WidgetSnapshotPublisher {
     private let store: WidgetSharedStore?
     private var snapshot: WidgetSnapshot
     private var isConnected = false
@@ -25,7 +25,8 @@ final class WidgetSnapshotPublisher: ObservableObject {
 
     /// Bind after session restoration so startup does not erase a valid cached snapshot.
     func start(settings: SettingsViewModel, playback: PlaybackViewModel) {
-        guard subscriptions.isEmpty, store != nil else { return }
+        // Account isolation is required even when App Group storage is unavailable.
+        guard subscriptions.isEmpty else { return }
         settings.$preferences.sink { [weak self] preferences in
             guard let self else { return }
             var next = snapshot
@@ -86,7 +87,7 @@ final class WidgetSnapshotPublisher: ObservableObject {
         guard url != requestedArtworkURL || artworkTask == nil else { return }
         artworkTask?.cancel()
         requestedArtworkURL = url
-        guard !cached, let url, url.scheme == "https", let fileName else { artworkTask = nil; return }
+        guard store != nil, !cached, let url, url.scheme == "https", let fileName else { artworkTask = nil; return }
         artworkTask = Task { [weak self] in
             guard let self else { return }
             defer { if requestedArtworkURL == url { artworkTask = nil } }
@@ -121,7 +122,7 @@ final class WidgetSnapshotPublisher: ObservableObject {
     }
 
     private func commit(_ next: WidgetSnapshot) {
-        guard let store else { return }
+        guard let store else { snapshot = next; return }
         do {
             try store.write(next)
             let now = Date()

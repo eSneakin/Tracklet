@@ -6,7 +6,8 @@ protocol PreferencesStore {
 }
 
 final class UserDefaultsPreferencesStore: PreferencesStore {
-    // ponytail: suite name isolates future App Group migration to one storage boundary.
+    // App-owned preferences. WidgetSnapshotPublisher copies them to the App Group;
+    // neither the extension nor credentials depend on this UserDefaults suite.
     private let defaults: UserDefaults
     private let key = "widget-preferences"
 

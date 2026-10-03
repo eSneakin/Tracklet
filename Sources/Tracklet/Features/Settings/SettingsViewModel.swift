@@ -10,6 +10,8 @@ final class SettingsViewModel: ObservableObject {
     private let preferencesStore: PreferencesStore
     private let authService: SpotifyAuthService
     private let apiClient: SpotifyAPIClient
+    private var authenticationAttempt = UUID()
+    private var connectionTask: Task<Void, Never>?
 
     init(preferencesStore: PreferencesStore, authService: SpotifyAuthService, apiClient: SpotifyAPIClient? = nil) {
         self.preferencesStore = preferencesStore
@@ -20,31 +22,55 @@ final class SettingsViewModel: ObservableObject {
 
     func connectSpotify() {
         guard !isConnecting else { return }
+        authenticationAttempt = UUID()
+        let attempt = authenticationAttempt
         authenticationState = .connecting
-        Task {
-            do {
-                _ = try await authService.authorize()
-                authenticationState = .connected(SpotifyAccount(user: try await apiClient.currentUser()))
-            } catch {
-                authenticationState = .error(error.localizedDescription)
-            }
+        connectionTask = Task {
+            await authenticate(restoring: false, attempt: attempt)
         }
     }
 
     func disconnectSpotify() {
-        Task {
-            try? authService.disconnect()
+        authenticationAttempt = UUID()
+        connectionTask?.cancel()
+        connectionTask = nil
+        do {
+            try authService.disconnect()
             authenticationState = .disconnected
+        } catch {
+            authenticationState = .error(error.localizedDescription)
         }
     }
 
     func restoreSession() async {
+        guard !isConnecting, account == nil else { return }
+        authenticationAttempt = UUID()
+        authenticationState = .connecting
+        await authenticate(restoring: true, attempt: authenticationAttempt)
+    }
+
+    private func authenticate(restoring: Bool, attempt: UUID) async {
+        // Check both sides of suspension: Disconnect may run before this task even starts.
+        guard authenticationAttempt == attempt, !Task.isCancelled else { return }
         do {
-            guard try authService.restoreSession() != nil else { return }
-            authenticationState = .connected(SpotifyAccount(user: try await apiClient.currentUser()))
+            if restoring {
+                guard try authService.restoreSession() != nil else {
+                    authenticationState = .disconnected
+                    return
+                }
+            } else {
+                _ = try await authService.authorize()
+            }
+            guard authenticationAttempt == attempt else { return }
+            try Task.checkCancellation()
+            let user = try await apiClient.currentUser()
+            guard authenticationAttempt == attempt else { return }
+            try Task.checkCancellation()
+            authenticationState = .connected(SpotifyAccount(user: user))
         } catch {
-            try? authService.disconnect()
-            authenticationState = .disconnected
+            guard authenticationAttempt == attempt else { return }
+            // Only explicit Disconnect removes credentials; offline/profile failures remain retryable.
+            authenticationState = .error(error.localizedDescription)
         }
     }
 

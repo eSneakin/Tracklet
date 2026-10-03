@@ -31,10 +31,13 @@ shared.sort.each { |path| widget.source_build_phase.add_file_reference(reference
 resources = project.main_group.new_group('Resources', 'Resources')
 icon = resources.new_file('AppIcon.icon')
 icon.last_known_file_type = 'folder.iconcomposer'
-app.resources_build_phase.add_file_reference(icon)
-app.build_configurations.each do |configuration|
-  configuration.build_settings['ASSETCATALOG_COMPILER_APPICON_NAME'] = 'AppIcon'
-  configuration.build_settings.delete('ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME')
+# The gallery resolves the extension as well as its host. Both need compiled icon metadata.
+[app, widget].each do |target|
+  target.resources_build_phase.add_file_reference(icon)
+  target.build_configurations.each do |configuration|
+    configuration.build_settings['ASSETCATALOG_COMPILER_APPICON_NAME'] = 'AppIcon'
+    configuration.build_settings.delete('ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME')
+  end
 end
 
 [[app, 'com.tracklet.app', 'Tracklet'], [widget, 'com.tracklet.app.widget', 'Widget']].each do |target, bundle, config_name|

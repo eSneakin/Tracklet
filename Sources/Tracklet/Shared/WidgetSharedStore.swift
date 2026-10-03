@@ -19,11 +19,13 @@ struct WidgetSharedStore {
     }
 
     func write(_ snapshot: WidgetSnapshot) throws {
+        // The extension may read during publication; atomic replacement prevents partial JSON.
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         try JSONEncoder().encode(snapshot).write(to: directory.appendingPathComponent("snapshot.json"), options: .atomic)
     }
 
     func artworkURL(fileName: String?) -> URL? {
+        // Snapshot data crosses a process boundary. Accept only hashed cache names, never paths.
         guard let fileName, fileName.count == 68, fileName.hasSuffix(".jpg"),
               fileName.dropLast(4).allSatisfy({ $0.isHexDigit }) else { return nil }
         return directory.appendingPathComponent("Artwork", isDirectory: true).appendingPathComponent(fileName)

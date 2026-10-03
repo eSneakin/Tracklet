@@ -4,6 +4,18 @@ import XCTest
 
 final class WidgetPlaybackTests: XCTestCase {
     @MainActor
+    func testVisiblePlaybackPayloadIsSharedByLiveAndRememberedStates() {
+        let live = PlaybackState(item: nil, isPlaying: true, progressAtFetch: 0,
+                                 device: nil, fetchedAt: Date(timeIntervalSince1970: 100))
+        let saved = live.remembered()
+        XCTAssertEqual(PlaybackViewModel.State.playing(live).playback, live)
+        XCTAssertEqual(PlaybackViewModel.State.paused(live).playback, live)
+        XCTAssertEqual(PlaybackViewModel.State.lastPlayed(saved).playback, saved)
+        let emptyStates: [PlaybackViewModel.State] = [.idle, .loading, .nothingPlaying, .error("Offline")]
+        for state in emptyStates { XCTAssertNil(state.playback) }
+    }
+
+    @MainActor
     func testAllCommandsUseExistingClientAndRefreshConfirmedState() async throws {
         let (model, fixture) = makeModel()
         let checks: [(PlaybackAction, String, String, String?)] = [
@@ -118,10 +130,46 @@ final class WidgetPlaybackTests: XCTestCase {
             if status == 429 {
                 try await Task.sleep(for: .milliseconds(750))
                 await model.performWidgetAction(.next)
+                await model.refresh() // Polling must respect the same command cooldown.
                 XCTAssertEqual(fixture.commands.count, 1)
                 XCTAssertEqual(fixture.reads, 2)
             }
         }
+    }
+
+    @MainActor
+    func testRateLimitedReadSuppressesPollingWithoutDiscardingPlayback() async throws {
+        let (model, fixture) = makeModel()
+        await model.refresh()
+        let before = try playback(model)
+        fixture.lock.withLock { fixture.readStatus = 429 }
+        await model.refresh()
+        await model.refresh()
+        await model.performWidgetAction(.next)
+        XCTAssertEqual(fixture.reads, 2)
+        XCTAssertTrue(fixture.commands.isEmpty)
+        XCTAssertEqual(try playback(model), before)
+        XCTAssertNotNil(model.refreshError)
+    }
+
+    @MainActor
+    func testDisconnectClearsPlaybackWithoutAppGroupStorage() async throws {
+        let (model, _) = makeModel()
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [PlaybackURLProtocol.self]
+        let network = URLSession(configuration: configuration)
+        defer { network.invalidateAndCancel() }
+        let auth = SpotifyAuthService(configuration: .current, credentialStore: TestCredentialStore())
+        let settings = SettingsViewModel(preferencesStore: TestPreferencesStore(), authService: auth,
+                                        apiClient: SpotifyAPIClient(authService: auth, session: network))
+        await settings.restoreSession()
+        let publisher = WidgetSnapshotPublisher(store: nil)
+        publisher.start(settings: settings, playback: model)
+        await model.refresh()
+        XCTAssertTrue(model.canControlPlayback)
+        settings.disconnectSpotify()
+        XCTAssertFalse(model.canControlPlayback)
+        if case .idle = model.state {} else { XCTFail("Disconnected playback was retained") }
     }
 
     @MainActor
@@ -438,6 +486,8 @@ private final class PlaybackFixture: @unchecked Sendable {
             return (200, Data(#"{"id":"account-a","display_name":"Test account"}"#.utf8))
         }
         if request.httpMethod == "GET" {
+            let types = URLComponents(url: request.url!, resolvingAgainstBaseURL: false)?.queryItems?.first { $0.name == "additional_types" }?.value
+            XCTAssertEqual(types, "track,episode", "Both playback endpoints must opt into episodes")
             reads += 1
             if failReads { throw URLError(.notConnectedToInternet) }
             if failConfirmation, !commands.isEmpty { throw URLError(.notConnectedToInternet) }

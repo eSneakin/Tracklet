@@ -9,19 +9,20 @@ struct SettingsView: View {
             VStack(alignment: .leading, spacing: 24) {
                 header
                 AccountConnectionView(account: model.account, isConnecting: model.isConnecting, errorMessage: model.errorMessage, onConnect: model.connectSpotify, onDisconnect: model.disconnectSpotify)
-                PlaybackView(model: playbackModel)
+                PlaybackView(model: playbackModel, artworkStyle: model.preferences.artworkStyle)
                 SettingsSection(title: "Widget") {
-                    SelectionRow(selection: $model.preferences.artworkStyle, options: ArtworkStyle.allCases)
+                    SelectionRow(selection: $model.preferences.artworkStyle, options: ArtworkStyle.allCases, title: \.title)
                 }
                 SettingsSection(title: "Appearance") {
-                    SelectionRow(selection: $model.preferences.appearance, options: WidgetAppearance.allCases)
+                    SelectionRow(selection: $model.preferences.appearance, options: WidgetAppearance.allCases, title: \.title)
                 }
             }
             .padding(34)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(TrackletTheme.background)
-        .preferredColorScheme(.dark)
+        // Keep the canvas dark without overriding the native window's system appearance.
+        .environment(\.colorScheme, .dark)
     }
 
     private var header: some View {
@@ -60,16 +61,17 @@ struct SettingsSection<Content: View>: View {
     }
 }
 
-struct SelectionRow<Option: CaseIterable & Hashable & Identifiable & RawRepresentable>: View where Option.RawValue == String {
+struct SelectionRow<Option: Hashable & Identifiable>: View {
     @Binding var selection: Option
     let options: [Option]
+    let title: (Option) -> String
 
     var body: some View {
         VStack(spacing: 0) {
             ForEach(options) { option in
                 Button { withAnimation(.easeOut(duration: 0.16)) { selection = option } } label: {
                     HStack {
-                        Text(optionTitle(option))
+                        Text(title(option))
                             .font(.system(size: 15, weight: selection == option ? .semibold : .regular))
                             .foregroundStyle(TrackletTheme.primaryText)
                         Spacer()
@@ -83,11 +85,9 @@ struct SelectionRow<Option: CaseIterable & Hashable & Identifiable & RawRepresen
                 }
                 .buttonStyle(.plain)
                 .trackletClickableCursor()
+                .accessibilityAddTraits(selection == option ? .isSelected : [])
             }
         }
     }
 
-    private func optionTitle(_ option: Option) -> String {
-        option.rawValue == "fullColor" ? "Full Color" : option.rawValue.capitalized
-    }
 }

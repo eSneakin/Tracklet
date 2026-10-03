@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PlaybackView: View {
     @ObservedObject var model: PlaybackViewModel
+    var artworkStyle: ArtworkStyle = .fullColor
 
     var body: some View {
         TrackletCard {
@@ -33,7 +34,7 @@ struct PlaybackView: View {
 
     private var emptyView: some View {
         HStack(spacing: 14) {
-            ArtworkView(url: nil, size: 72)
+            ArtworkView(url: nil, size: 72, style: artworkStyle)
             VStack(alignment: .leading, spacing: 4) {
                 Text("Nothing playing")
                     .font(.system(size: 17, weight: .semibold))
@@ -50,7 +51,7 @@ struct PlaybackView: View {
     private func playbackView(_ playback: PlaybackState) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 14) {
-                ArtworkView(url: playback.item?.artworkURL, size: 88, cachedFileURL: model.cachedArtworkURL)
+                ArtworkView(url: playback.item?.artworkURL, size: 88, cachedFileURL: model.cachedArtworkURL, style: artworkStyle)
                 VStack(alignment: .leading, spacing: 4) {
                     Text(playback.item?.title ?? "Unknown title")
                         .font(.system(size: 17, weight: .semibold))
@@ -79,9 +80,9 @@ struct PlaybackView: View {
                         ProgressView(value: 0).tint(TrackletTheme.accent)
                     }
                     HStack {
-                        Text(formatTime(progress))
+                        Text(PlaybackTime.format(progress))
                         Spacer()
-                        Text(formatTime(playback.duration))
+                        Text(PlaybackTime.format(playback.duration))
                     }
                     .font(.system(size: 11, weight: .medium, design: .monospaced))
                     .foregroundStyle(TrackletTheme.secondaryText)
@@ -133,12 +134,9 @@ struct PlaybackView: View {
             }
             .buttonStyle(.plain)
             .trackletClickableCursor()
+            .accessibilityLabel("Refresh playback")
         }
         .frame(minHeight: 96)
     }
 
-    private func formatTime(_ seconds: TimeInterval) -> String {
-        guard seconds.isFinite else { return "0:00" }
-        return "\(Int(seconds) / 60):\(String(format: "%02d", Int(seconds) % 60))"
-    }
 }

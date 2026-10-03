@@ -10,6 +10,14 @@ final class PlaybackViewModel: ObservableObject {
         case lastPlayed(PlaybackState)
         case nothingPlaying
         case error(String)
+
+        /// Visible content is independent of an in-flight refresh or command.
+        var playback: PlaybackState? {
+            switch self {
+            case .playing(let playback), .paused(let playback), .lastPlayed(let playback): playback
+            case .idle, .loading, .nothingPlaying, .error: nil
+            }
+        }
     }
 
     @Published private(set) var state: State = .idle
@@ -37,6 +45,10 @@ final class PlaybackViewModel: ObservableObject {
 
     func invalidateSessionPlayback() {
         sessionGeneration += 1
+        // A new account must not join the previous account's suspended refresh.
+        refreshTask?.cancel()
+        refreshTask = nil
+        isRefreshing = false
         lastConfirmedPlayback = nil
         actionRetryDate = .distantPast
         state = .idle
@@ -52,20 +64,21 @@ final class PlaybackViewModel: ObservableObject {
     func refresh(afterAction: Bool = false) async {
         guard !isPerformingPlaybackAction || afterAction else { return }
         if let refreshTask { await refreshTask.value; return }
+        let generation = sessionGeneration
         let task = Task {
-            defer { refreshTask = nil }
-            await fetchPlayback()
+            defer { if generation == sessionGeneration { refreshTask = nil } }
+            await fetchPlayback(generation: generation)
         }
         refreshTask = task
         await task.value
     }
 
-    private func fetchPlayback() async {
-        let generation = sessionGeneration
-        let hasVisiblePlayback = hasUsablePlayback
+    private func fetchPlayback(generation: Int) async {
+        guard generation == sessionGeneration, !Task.isCancelled else { return }
+        let hasVisiblePlayback = state.playback != nil
         isRefreshing = true
         if !hasVisiblePlayback, case .idle = state { state = .loading }
-        defer { isRefreshing = false }
+        defer { if generation == sessionGeneration { isRefreshing = false } }
         do {
             refreshError = nil
             let result = try await service.fetchPlaybackState()
@@ -86,12 +99,12 @@ final class PlaybackViewModel: ObservableObject {
     func startPolling() async {
         await refresh()
         pollingTask?.cancel()
+        let interval = pollInterval
         pollingTask = Task { [weak self] in
-            guard let self else { return }
             while !Task.isCancelled {
-                try? await Task.sleep(for: pollInterval)
-                guard !Task.isCancelled else { return }
-                await refresh()
+                try? await Task.sleep(for: interval)
+                guard !Task.isCancelled, let self else { return }
+                await self.refresh()
             }
         }
     }
@@ -190,37 +203,30 @@ final class PlaybackViewModel: ObservableObject {
 
     var cachedArtworkURL: URL? { lastConfirmedPlayback.flatMap(artworkLookup) }
 
-    private var hasUsablePlayback: Bool {
-        switch state {
-        case .playing, .paused, .lastPlayed: true
-        default: false
-        }
-    }
-
     private func optimisticPlayback(isPlaying: Bool) -> State {
-        guard case .playing(let playback) = state else {
-            guard case .paused(let playback) = state else { return state }
+        switch state {
+        case .playing(let playback), .paused(let playback):
             return .pausedOrPlaying(playback, isPlaying: isPlaying)
+        default:
+            // History is not evidence of a live device; wait for Spotify confirmation.
+            return state
         }
-        return .pausedOrPlaying(playback, isPlaying: isPlaying)
     }
 
     var canControlPlayback: Bool {
-        switch state {
-        case .playing(let playback), .paused(let playback), .lastPlayed(let playback): playback.item != nil
-        default: false
-        }
+        state.playback?.item != nil
     }
 }
 
 private extension PlaybackViewModel.State {
     static func pausedOrPlaying(_ playback: PlaybackState, isPlaying: Bool) -> Self {
+        let now = Date()
         let optimistic = PlaybackState(
             item: playback.item,
             isPlaying: isPlaying,
-            progressAtFetch: playback.progress(at: Date()),
+            progressAtFetch: playback.progress(at: now),
             device: playback.device,
-            fetchedAt: Date(),
+            fetchedAt: now,
             repeatMode: playback.repeatMode
         )
         return isPlaying ? .playing(optimistic) : .paused(optimistic)

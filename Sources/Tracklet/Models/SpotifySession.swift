@@ -7,7 +7,8 @@ struct SpotifySession: Codable, Equatable {
     let scope: String
 
     var needsRefresh: Bool {
-        expiresAt <= Date().addingTimeInterval(60)
+        // Refresh early so a token does not expire while its API request is in flight.
+        accessToken.isEmpty || expiresAt <= Date().addingTimeInterval(60)
     }
 }
 
@@ -33,5 +34,11 @@ struct SpotifyTokenResponse: Decodable {
         expiresIn = try container.decode(Int.self, forKey: .expiresIn)
         refreshToken = try container.decodeIfPresent(String.self, forKey: .refreshToken)
         scope = try container.decodeIfPresent(String.self, forKey: .scope) ?? ""
+        guard !accessToken.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              tokenType.caseInsensitiveCompare("Bearer") == .orderedSame,
+              expiresIn > 0, refreshToken?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty != true else {
+            throw DecodingError.dataCorrupted(.init(codingPath: decoder.codingPath,
+                                                   debugDescription: "Invalid Spotify token response"))
+        }
     }
 }

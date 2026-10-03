@@ -7,23 +7,30 @@ protocol CredentialStore {
     func deleteSession() throws
 }
 
-enum CredentialStoreError: Error {
+enum CredentialStoreError: LocalizedError {
     case keychain(OSStatus)
     case invalidData
+
+    var errorDescription: String? {
+        switch self {
+        case .keychain(let status):
+            "Could not access Spotify credentials: \(SecCopyErrorMessageString(status, nil) as String? ?? String(status))."
+        case .invalidData: "Saved Spotify credentials could not be read."
+        }
+    }
 }
 
 final class KeychainCredentialStore: CredentialStore {
-    private let service = "com.tracklet.spotify"
-    private let account = "session"
+    private var query: [String: Any] {
+        [kSecClass as String: kSecClassGenericPassword,
+         kSecAttrService as String: "com.tracklet.spotify",
+         kSecAttrAccount as String: "session"]
+    }
 
     func readSession() throws -> SpotifySession? {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: account,
-            kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne
-        ]
+        var query = query
+        query[kSecReturnData as String] = true
+        query[kSecMatchLimit as String] = kSecMatchLimitOne
         var result: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
         if status == errSecItemNotFound { return nil }
@@ -34,31 +41,21 @@ final class KeychainCredentialStore: CredentialStore {
 
     func save(_ session: SpotifySession) throws {
         let data = try JSONEncoder().encode(session)
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: account
-        ]
         let attributes = [kSecValueData as String: data]
-        let status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
+        var status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         if status == errSecItemNotFound {
             var addQuery = query
             addQuery[kSecValueData as String] = data
-            let addStatus = SecItemAdd(addQuery as CFDictionary, nil)
-            guard addStatus == errSecSuccess else {
-                throw CredentialStoreError.keychain(addStatus)
+            status = SecItemAdd(addQuery as CFDictionary, nil)
+            // Another process may create the item between our update and add.
+            if status == errSecDuplicateItem {
+                status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
             }
-        } else if status != errSecSuccess {
-            throw CredentialStoreError.keychain(status)
         }
+        guard status == errSecSuccess else { throw CredentialStoreError.keychain(status) }
     }
 
     func deleteSession() throws {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: account
-        ]
         let status = SecItemDelete(query as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else {
             throw CredentialStoreError.keychain(status)

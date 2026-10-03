@@ -8,19 +8,18 @@ struct WidgetArtwork: View {
     var body: some View {
         GeometryReader { geometry in
             Group {
-                if let data, let image = NSImage(data: data) {
-                    Image(nsImage: image).resizable().scaledToFill()
-                        .saturation(style == .monochrome ? 0 : 1)
-                        .blur(radius: style == .blurred ? 6 : 0, opaque: true)
+                if let data, let image = WidgetArtworkImage.make(data: data, style: style) {
+                    Image(decorative: image, scale: 1).renderingMode(.original).resizable().scaledToFill()
                 } else {
                     ZStack {
-                        TrackletTheme.subsurface
+                        style == .monochrome ? Color(white: 0.2) : TrackletTheme.subsurface
                         Image(systemName: "music.note").font(.system(size: 30, weight: .light))
-                            .foregroundStyle(TrackletTheme.accent)
+                            .foregroundStyle(style == .monochrome ? Color(white: 0.8) : TrackletTheme.accent)
                     }
                 }
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
+            .blur(radius: style == .blurred ? 6 : 0, opaque: true)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .accessibilityHidden(true)
@@ -52,10 +51,10 @@ struct WidgetPlaybackProgress: View {
                     if let interval = timerInterval {
                         Text(timerInterval: interval, countsDown: false, showsHours: false)
                     } else {
-                        Text(Self.time(progress))
+                        Text(PlaybackTime.format(progress))
                     }
                     Spacer()
-                    Text(Self.time(playback.duration))
+                    Text(PlaybackTime.format(playback.duration))
                 }
                 .font(.system(size: 10, weight: .medium, design: .monospaced))
                 .foregroundStyle(TrackletTheme.secondaryText)
@@ -71,9 +70,4 @@ struct WidgetPlaybackProgress: View {
         return start...start.addingTimeInterval(playback.duration)
     }
 
-    private static func time(_ seconds: TimeInterval) -> String {
-        guard seconds.isFinite, seconds >= 0 else { return "—" }
-        let seconds = Int(min(seconds, 86_400 * 365))
-        return "\(seconds / 60):\(String(format: "%02d", seconds % 60))"
-    }
 }

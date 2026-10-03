@@ -10,25 +10,22 @@ struct PlaybackControls: View {
 
     var body: some View {
         HStack(spacing: 24) {
-            controlButton(icon: "backward.fill", action: onPrevious)
-            controlButton(icon: isPlaying ? "pause.fill" : "play.fill", prominent: true, action: onTogglePlayPause)
-            controlButton(icon: "forward.fill", action: onNext)
+            controlButton(icon: "backward.fill", label: "Previous", action: onPrevious)
+            controlButton(icon: isPlaying ? "pause.fill" : "play.fill", label: isPlaying ? "Pause" : "Play", prominent: true, action: onTogglePlayPause)
+            controlButton(icon: "forward.fill", label: "Next", action: onNext)
         }
         .disabled(!isEnabled || isBusy)
         .opacity(isEnabled ? 1 : 0.45)
     }
 
-    private func controlButton(icon: String, prominent: Bool = false, action: @escaping () -> Void) -> some View {
+    private func controlButton(icon: String, label: String, prominent: Bool = false, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Image(systemName: icon)
                 .font(.system(size: prominent ? 17 : 13, weight: .semibold))
-                .foregroundStyle(prominent ? TrackletTheme.background : TrackletTheme.primaryText)
-                .frame(width: prominent ? 48 : 36, height: prominent ? 48 : 36)
-                .background(prominent ? TrackletTheme.accent : TrackletTheme.subsurface, in: Circle())
-                .overlay(Circle().stroke(TrackletTheme.border.opacity(prominent ? 0 : 0.45), lineWidth: 1))
         }
         .buttonStyle(PlaybackControlButtonStyle(prominent: prominent, isBusy: isBusy))
         .trackletClickableCursor()
+        .accessibilityLabel(label)
     }
 }
 
@@ -50,6 +47,7 @@ private struct PlaybackControlButtonLabel: View {
     let prominent: Bool
     let isBusy: Bool
     @State private var isHovered = false
+    @Environment(\.isEnabled) private var isEnabled
 
     var body: some View {
         configuration.label
@@ -61,7 +59,8 @@ private struct PlaybackControlButtonLabel: View {
             .opacity(configuration.isPressed ? 0.78 : (isBusy ? 0.62 : 1))
             .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
             .animation(.easeOut(duration: 0.14), value: isHovered)
-            .onHover { isHovered = $0 }
+            .onHover { isHovered = $0 && isEnabled }
+            .onChange(of: isEnabled) { if !$0 { isHovered = false } }
     }
 
     private var background: Color {

@@ -46,8 +46,17 @@ struct PlaybackState: Codable, Equatable {
     var duration: TimeInterval { item?.duration ?? 0 }
 
     func progress(at date: Date = Date()) -> TimeInterval? {
-        guard let progressAtFetch else { return nil }
+        guard let progressAtFetch, progressAtFetch.isFinite, duration.isFinite, duration >= 0,
+              date.timeIntervalSince(fetchedAt).isFinite else { return nil }
         let elapsed = isPlaying ? max(0, date.timeIntervalSince(fetchedAt)) : 0
         return min(max(0, progressAtFetch + elapsed), duration)
+    }
+}
+
+enum PlaybackTime {
+    static func format(_ seconds: TimeInterval) -> String {
+        guard seconds.isFinite, seconds >= 0 else { return "—" }
+        let seconds = Int(min(seconds, 86_400 * 365))
+        return "\(seconds / 60):\(String(format: "%02d", seconds % 60))"
     }
 }

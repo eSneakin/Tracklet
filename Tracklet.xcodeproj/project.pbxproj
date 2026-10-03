@@ -16,6 +16,7 @@
 		26A6E1F19BECCA2DDCAA4FE6 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F862B5ACEAA5A69F284BAAD3 /* SettingsViewModel.swift */; };
 		339832EA5EA1CA72C68D9E93 /* SpotifyAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D63A7D23B1238A0AFC54D1 /* SpotifyAuthService.swift */; };
 		35D3A0BD28B4498E22ED64AC /* TrackletWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C859A56B0916CDCB5B07879 /* TrackletWidget.swift */; };
+		3DF5C75F5B52B04FE05D399A /* WidgetArtworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3D664DCF0A6C3984E44751 /* WidgetArtworkImage.swift */; };
 		3E34A39A4D23E05898679C12 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29BDE7AB7103BF751DA8E51 /* SettingsView.swift */; };
 		4405D33C579BBC0642346933 /* WidgetSharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806F461709179EF9C769EEBE /* WidgetSharedStore.swift */; };
 		49450F7C26381787CD23D7A1 /* TrackletRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC43C30804B99633C7499CD6 /* TrackletRuntime.swift */; };
@@ -28,6 +29,7 @@
 		6CA575A90F55EB7D00827D02 /* TrackletCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61DD5A81A612536173063CC /* TrackletCard.swift */; };
 		6FA33F6089A91F62FB4E1D04 /* TrackletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF73924970D52E9E5293A66 /* TrackletApp.swift */; };
 		7B435649A5569B81F5E5B4C9 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433BC0BA58B2D6DD454C40A3 /* PlaybackState.swift */; };
+		831F2D0BE99AF9917CE40FFB /* WidgetArtworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3D664DCF0A6C3984E44751 /* WidgetArtworkImage.swift */; };
 		896C5B1284FFE807653E804C /* WidgetSnapshotPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C3B8A445E567E4A4BD9B18 /* WidgetSnapshotPublisher.swift */; };
 		89E5BDF76A72AB4C1CA9206B /* SpotifyAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A378CE6805884B786A7D892 /* SpotifyAccount.swift */; };
 		9008EF402A45D74D753E989C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB47F3C9A6F60D9AA08AE31 /* Cocoa.framework */; };
@@ -40,6 +42,7 @@
 		ABAC09419496068CE9659E2C /* WidgetPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513D771C2046C733FF4BD91 /* WidgetPreferences.swift */; };
 		B376C5877270E9DDA72A0BA8 /* SpotifySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6EBC6F9EA38787E133CA26 /* SpotifySession.swift */; };
 		B639F1D0B4782383001F074D /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6E30389173C632F337EE73D /* PlaybackView.swift */; };
+		B915F96E8BDFDDBA607AB8CD /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = A06069C311C953E03F6E5293 /* AppIcon.icon */; };
 		C8673F9DA188E6E0E4C7FB65 /* SpotifyPlaybackDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B4700EED2B94B81C6FBD0 /* SpotifyPlaybackDTO.swift */; };
 		C9F238CC4FD39EC004A2FEBA /* PreferencesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98752E97C00B5BB2CBC7BD1 /* PreferencesStore.swift */; };
 		CBC164AE43681F5FD9362A60 /* ClickableCursorModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F7C3411875A56429540476 /* ClickableCursorModifier.swift */; };
@@ -89,6 +92,7 @@
 		433BC0BA58B2D6DD454C40A3 /* PlaybackState.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlaybackState.swift; path = Sources/Tracklet/Models/PlaybackState.swift; sourceTree = "<group>"; };
 		4CF73924970D52E9E5293A66 /* TrackletApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TrackletApp.swift; path = Sources/Tracklet/TrackletApp.swift; sourceTree = "<group>"; };
 		59D26E29FDE268501A1B3633 /* SpotifyPlaybackService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpotifyPlaybackService.swift; path = Sources/Tracklet/Services/Spotify/SpotifyPlaybackService.swift; sourceTree = "<group>"; };
+		6B3D664DCF0A6C3984E44751 /* WidgetArtworkImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetArtworkImage.swift; path = Sources/Tracklet/Shared/WidgetArtworkImage.swift; sourceTree = "<group>"; };
 		6F0A3796D9668263FFFB5D6C /* WidgetPlaybackView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WidgetPlaybackView.swift; sourceTree = "<group>"; };
 		73C3B8A445E567E4A4BD9B18 /* WidgetSnapshotPublisher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetSnapshotPublisher.swift; path = Sources/Tracklet/Services/WidgetSnapshotPublisher.swift; sourceTree = "<group>"; };
 		806F461709179EF9C769EEBE /* WidgetSharedStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetSharedStore.swift; path = Sources/Tracklet/Shared/WidgetSharedStore.swift; sourceTree = "<group>"; };
@@ -180,6 +184,7 @@
 				D8836B8E34BA8BF75B756FBC /* TrackletTheme.swift */,
 				4CF73924970D52E9E5293A66 /* TrackletApp.swift */,
 				CC43C30804B99633C7499CD6 /* TrackletRuntime.swift */,
+				6B3D664DCF0A6C3984E44751 /* WidgetArtworkImage.swift */,
 			);
 			name = "Tracklet Sources";
 			sourceTree = "<group>";
@@ -341,6 +346,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B915F96E8BDFDDBA607AB8CD /* AppIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,6 +393,7 @@
 				1D73FA16C7A4E52B602E4181 /* TrackletTheme.swift in Sources */,
 				6FA33F6089A91F62FB4E1D04 /* TrackletApp.swift in Sources */,
 				49450F7C26381787CD23D7A1 /* TrackletRuntime.swift in Sources */,
+				831F2D0BE99AF9917CE40FFB /* WidgetArtworkImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +412,7 @@
 				4405D33C579BBC0642346933 /* WidgetSharedStore.swift in Sources */,
 				E7AFC63E7125B39BAEB26392 /* WidgetSnapshot.swift in Sources */,
 				6B92F5FA660195612D86B6A2 /* TrackletTheme.swift in Sources */,
+				3DF5C75F5B52B04FE05D399A /* WidgetArtworkImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +467,7 @@
 			baseConfigurationReference = 4098B2277F41E97A49072A2B /* Tracklet.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Configuration/Widget.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Configuration/Widget-Info.plist";
@@ -477,6 +486,7 @@
 			baseConfigurationReference = 4098B2277F41E97A49072A2B /* Tracklet.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Configuration/Widget.entitlements;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Configuration/Widget-Info.plist";

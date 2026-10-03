@@ -4,6 +4,7 @@ struct ArtworkView: View {
     let url: URL?
     let size: CGFloat
     var cachedFileURL: URL? = nil
+    var style: ArtworkStyle = .fullColor
 
     var body: some View {
         Group {
@@ -20,6 +21,7 @@ struct ArtworkView: View {
         }
         .frame(width: size, height: size)
         .background(TrackletTheme.subsurface)
+        .trackletArtworkStyle(style)
         .clipShape(RoundedRectangle(cornerRadius: 14))
         .shadow(color: .black.opacity(0.38), radius: 18, y: 10)
     }

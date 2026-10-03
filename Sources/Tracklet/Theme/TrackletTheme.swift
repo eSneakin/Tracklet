@@ -12,3 +12,12 @@ enum TrackletTheme {
     static let success = Color(red: 0.376, green: 0.647, blue: 0.984) // #60A5FA
     static let destructive = Color(red: 0.973, green: 0.443, blue: 0.443) // #F87171
 }
+
+extension View {
+    /// App treatment for cached, remote and placeholder artwork. Widgets bake grayscale
+    /// into their image pixels instead, to survive WidgetKit's remote rendering.
+    func trackletArtworkStyle(_ style: ArtworkStyle) -> some View {
+        saturation(style == .monochrome ? 0 : 1)
+            .blur(radius: style == .blurred ? 6 : 0, opaque: true)
+    }
+}
